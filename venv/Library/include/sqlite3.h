@@ -41,10 +41,6 @@
 extern "C" {
 #endif
 
-#ifndef SQLITE_EXPORTS
-// Always dll import, providing only a shared lib for sqlite.
-#define SQLITE_API __declspec( dllimport )
-#endif
 
 /*
 ** Facilitate override of interface linkage and calling conventions.
