@@ -18,18 +18,42 @@ class Datatransformation:
     def get_data_transformer_object(self):
         try:
             num_columns=["writing_score","reading_score"]
-            categorical_columns=[
+            cat_columns=[
                 "gender",
                 "race_ethnicity",
                 "parental_level_of_education",
-                "lunch",
+                "lunch", 
                 "test_preprartion_score"
             ]
-            num_pipeline=Pipeline(
+            num_pipeline=Pipeline( 
                 steps=[
                     ("imputer",SimpleImputer(strategy="median"))
                     ("scaler",StandardScaler())
 
                 ]
+        
             )
-        except:
+            cat_pipeline=Pipeline(
+                steps=[
+                    ("imputer",SimpleImputer(strategy="most_frequent")),
+                    ("onehotencoder",OneHotEncoder())
+                    ("scaler",StandardScaler())
+                ]
+            )
+            logging.info("numerical columns cleaning done ")
+            logging.info("categorical columns encoding done ")
+
+            preprocessor=ColumnTransformer(
+                [
+                    ("num_pipeline",num_pipeline,num_columns),
+                    ("cat_pipeline",cat_pipeline,cat_columns)
+                                        
+
+                ]
+            )
+            return preprocessor 
+        
+        except Exception as e:
+            raise CustomException(e,sys)
+        
+
