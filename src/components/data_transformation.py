@@ -27,7 +27,7 @@ class Datatransformation:
             ]
             num_pipeline=Pipeline( 
                 steps=[
-                    ("imputer",SimpleImputer(strategy="median"))
+                    ("imputer",SimpleImputer(strategy="median")),
                     ("scaler",StandardScaler())
 
                 ]
@@ -36,11 +36,11 @@ class Datatransformation:
             cat_pipeline=Pipeline(
                 steps=[
                     ("imputer",SimpleImputer(strategy="most_frequent")),
-                    ("onehotencoder",OneHotEncoder())
+                    ("onehotencoder",OneHotEncoder()),
                     ("scaler",StandardScaler())
                 ]
             )
-            logging.info("numerical columns cleaning done ")
+            logging.info("numerical columns cleaning done "),
             logging.info("categorical columns encoding done ")
 
             preprocessor=ColumnTransformer(
